@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: yatri-backend, labels: {app: yatri-app}}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: yatri-backend}}
+  template:
+    metadata: {labels: {app: yatri-backend, app-group: yatri-app}}
+    spec:
+      containers:
+        - name: backend
+          image: hashicorp/http-echo:1.0
+          args: ['-text=Yatri backend API']
+          ports: [{containerPort: 5678}]
+          envFrom: [{configMapRef: {name: yatri-app-config}}]
+          env:
+            - name: POSTGRES_USER
+              valueFrom: {secretKeyRef: {name: yatri-db-secret, key: POSTGRES_USER}}
+            - name: POSTGRES_PASSWORD
+              valueFrom: {secretKeyRef: {name: yatri-db-secret, key: POSTGRES_PASSWORD}}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: yatri-backend, labels: {app: yatri-app}}
+spec: {selector: {app: yatri-backend}, ports: [{port: 80, targetPort: 5678}]}

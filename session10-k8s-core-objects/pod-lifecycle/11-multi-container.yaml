@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata: {name: lifecycle-multi-container}
+spec:
+  containers:
+    - name: app
+      image: nginx:1.27-alpine
+    - name: sidecar
+      image: busybox:1.36
+      command: ['sh','-c','while true; do echo sidecar-alive; sleep 10; done']

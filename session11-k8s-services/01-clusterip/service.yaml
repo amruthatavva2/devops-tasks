@@ -1,0 +1,4 @@
+apiVersion: v1
+kind: Service
+metadata: {name: web-internal}
+spec: {type: ClusterIP, selector: {app: web-internal}, ports: [{port: 80, targetPort: 80}]}

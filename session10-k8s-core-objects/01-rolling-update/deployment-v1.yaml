@@ -1,0 +1,9 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: app-rolling}
+spec:
+  replicas: 3
+  selector: {matchLabels: {app: app-rolling}}
+  template:
+    metadata: {labels: {app: app-rolling, version: v1}}
+    spec: {containers: [{name: app, image: nginx:1.27-alpine, ports: [{containerPort: 80}]}]}

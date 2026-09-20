@@ -1,0 +1,9 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: app-blue}
+spec:
+  replicas: 3
+  selector: {matchLabels: {app: myapp, slot: blue}}
+  template:
+    metadata: {labels: {app: myapp, slot: blue}}
+    spec: {containers: [{name: app, image: hashicorp/http-echo:1.0, args: ['-text=<p>BLUE ENVIRONMENT</p>'], ports: [{containerPort: 5678}]}]}
