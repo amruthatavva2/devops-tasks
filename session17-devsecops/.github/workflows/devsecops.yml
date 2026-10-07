@@ -1,0 +1,22 @@
+name: DevSecOps
+on: {push: {branches: [main]}, pull_request: {branches: [main]}}
+permissions: {contents: read, security-events: write, packages: write}
+jobs:
+  security-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json}
+      - run: npm ci && npm test && npm audit --audit-level=high
+        working-directory: app
+      - uses: github/codeql-action/init@v3
+        with: {languages: javascript}
+      - uses: github/codeql-action/analyze@v3
+      - uses: gitleaks/gitleaks-action@v2
+      - uses: aquasecurity/trivy-action@master
+        with: {scan-type: fs, scan-ref: ., severity: HIGH,CRITICAL, exit-code: '1'}
+      - uses: docker/build-push-action@v6
+        with: {context: ., push: false, tags: devsecops-demo:${{ github.sha }}}
+      - uses: aquasecurity/trivy-action@master
+        with: {image-ref: devsecops-demo:${{ github.sha }}, format: table, exit-code: '1', severity: HIGH,CRITICAL}

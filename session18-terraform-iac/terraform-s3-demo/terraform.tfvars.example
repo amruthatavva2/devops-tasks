@@ -1,0 +1,3 @@
+aws_region = "ap-south-1"
+bucket_name = "replace-with-unique-name-12345"
+environment = "dev"

@@ -1,0 +1,19 @@
+# Node.js
+**/node_modules/
+**/coverage/
+
+# Terraform state and local variable values
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+.terraform.lock.hcl
+
+# Generated certificates and evidence can be added deliberately
+*.key
+*.crt
+
+# Editor/system files
+.DS_Store
+Thumbs.db

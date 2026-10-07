@@ -1,0 +1,8 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: {name: observability-demo, namespace: argocd}
+spec:
+  project: default
+  source: {repoURL: https://github.com/amruthatavva2/devops-tasks.git, targetRevision: main, path: session20-monitoring-observability-gitops/monitoring}
+  destination: {server: https://kubernetes.default.svc, namespace: default}
+  syncPolicy: {automated: {prune: true, selfHeal: true}, syncOptions: [CreateNamespace=true]}

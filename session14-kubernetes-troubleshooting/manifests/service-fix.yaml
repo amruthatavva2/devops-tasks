@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: connectivity-demo}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: connectivity-demo}}
+  template:
+    metadata: {labels: {app: connectivity-demo}}
+    spec: {containers: [{name: nginx, image: nginx:1.27-alpine, ports: [{containerPort: 80}]}]}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: connectivity-demo}
+spec: {selector: {app: connectivity-demo}, ports: [{port: 80, targetPort: 80}]}

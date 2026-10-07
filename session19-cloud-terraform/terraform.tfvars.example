@@ -1,0 +1,5 @@
+aws_region = "ap-south-1"
+project = "devops-cloud-lab"
+key_name = "replace-with-existing-keypair"
+bucket_name = "replace-with-globally-unique-bucket-name"
+ami_id = "replace-with-current-amazon-linux-ami-id"

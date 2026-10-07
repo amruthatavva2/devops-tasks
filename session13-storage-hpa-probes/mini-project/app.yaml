@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: storage-web, labels: {app: storage-web}}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: storage-web}}
+  template:
+    metadata: {labels: {app: storage-web}}
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27-alpine
+          ports: [{containerPort: 80}]
+          volumeMounts: [{name: content, mountPath: /usr/share/nginx/html}]
+          readinessProbe: {httpGet: {path: /, port: 80}, initialDelaySeconds: 3}
+          livenessProbe: {httpGet: {path: /, port: 80}, initialDelaySeconds: 10}
+      volumes: [{name: content, persistentVolumeClaim: {claimName: web-content}}]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: storage-web}
+spec: {selector: {app: storage-web}, ports: [{port: 80, targetPort: 80}]}
