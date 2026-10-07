@@ -27,3 +27,9 @@ Install (revision 1) → upgrade replicas/image (revision 2) → verify `kubectl
 ## Mini project
 
 The `webapp` chart parametrizes replica count, image, Service, and resources. Keep screenshots from `helm list`, `status`, `history`, and `kubectl get pods` in `screenshots/`.
+
+## Actual execution evidence
+
+On 7 October 2026, the `webapp` release was installed at revision 1 with two Pods, upgraded to revision 2 with three Pods and NGINX `1.27.4-alpine`, then rolled back successfully to revision 1 values as revision 3. The final deployment returned to two ready Pods.
+
+![Actual Helm install, upgrade, and rollback](./screenshots/install-upgrade-rollback.png)

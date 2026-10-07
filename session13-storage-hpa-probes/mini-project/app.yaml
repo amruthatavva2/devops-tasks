@@ -7,6 +7,11 @@ spec:
   template:
     metadata: {labels: {app: storage-web}}
     spec:
+      initContainers:
+        - name: initialize-content
+          image: busybox:1.36
+          command: ['sh', '-c', 'test -f /content/index.html || echo "Persistent storage is working" > /content/index.html']
+          volumeMounts: [{name: content, mountPath: /content}]
       containers:
         - name: nginx
           image: nginx:1.27-alpine

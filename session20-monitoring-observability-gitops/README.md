@@ -27,3 +27,11 @@ kubectl get applications -n argocd
 ```
 
 Capture metrics/logs/probe output and Argo CD sync state under `screenshots/` after running the demo.
+
+## Actual monitoring evidence
+
+On 7 October 2026, the monitoring Deployment rolled out with two Ready Pods. Metrics Server reported 7–10m CPU and 9Mi memory per Pod; NGINX logs showed successful Kubernetes readiness-probe requests. The deployment description shows resource requests/limits plus readiness and liveness probes.
+
+![Actual monitoring evidence](./screenshots/monitoring-demo.png)
+
+![Observability and GitOps documentation](./screenshots/observability-gitops-docs.png)

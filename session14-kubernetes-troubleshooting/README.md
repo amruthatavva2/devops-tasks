@@ -39,3 +39,11 @@ kubectl get svc,endpoints,pods -l app=connectivity-demo
 ```
 
 The mini project is a broken-workload investigation: use the commands above to identify each failure, apply the corrected `service-fix.yaml`, then record before/after output in `screenshots/`.
+
+## Actual execution evidence
+
+On 7 October 2026, the cluster reproduced all three failures: `crashloop-demo` exited with code 1 and restarted; `imagepull-demo` showed `ErrImagePull` then `ImagePullBackOff` for a nonexistent tag; and `pending-demo` had a `FailedScheduling` event because it requests 1000Gi of memory. The corrected Service selected a ready endpoint successfully.
+
+![Failure investigation](./screenshots/common-failures.png)
+
+![Service verification and command evidence](./screenshots/service-fix-and-commands.png)
