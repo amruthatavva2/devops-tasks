@@ -2,7 +2,31 @@
 
 ## Task 1 — Volumes
 
-See [volume documentation](./01-kubernetes-volumes/README.md). The mini-project uses a dynamically provisioned PVC and readiness/liveness probes.
+| Storage type | What it is | Practical use |
+|---|---|---|
+| `emptyDir` | Directory created with a Pod and deleted with it; containers in that Pod can share it. | Temporary cache and app-to-sidecar file sharing. |
+| `hostPath` | Mounts a worker-node filesystem path. | Trusted node agents, such as log collectors; avoid for portable apps. |
+| PersistentVolume (PV) | Cluster-level storage capacity supplied by an administrator or provisioner. | The durable storage resource. |
+| PersistentVolumeClaim (PVC) | A workload request for storage capacity/access mode. | Apps mount the claim instead of storage-specific implementation. |
+| StorageClass | Storage-provisioning policy. | Selects provisioner, parameters, and reclaim policy. |
+| Dynamic provisioning | A PVC automatically causes its StorageClass provisioner to create a PV. | Default approach on Minikube and cloud Kubernetes. |
+
+Example `emptyDir`:
+
+```yaml
+volumes: [{name: cache, emptyDir: {}}]
+containers:
+  - name: app
+    volumeMounts: [{name: cache, mountPath: /cache}]
+```
+
+Example `hostPath`:
+
+```yaml
+volumes: [{name: host-logs, hostPath: {path: /var/log, type: Directory}}]
+```
+
+This session's mini project uses the default Minikube `standard` StorageClass. Its `web-content` PVC dynamically provisions and binds a 1Gi PV. The Deployment mounts that PVC; an init container creates `index.html` before NGINX starts so the HTTP readiness/liveness probes remain healthy.
 
 ## Task 2 — HPA hands-on
 
