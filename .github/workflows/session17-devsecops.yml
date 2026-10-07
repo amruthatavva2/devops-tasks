@@ -25,4 +25,4 @@ jobs:
       - uses: aquasecurity/trivy-action@master
         with: {scan-type: fs, scan-ref: session17-devsecops, severity: HIGH,CRITICAL, exit-code: '1'}
       - uses: docker/build-push-action@v6
-        with: {context: session17-devsecops, push: false, tags: devsecops-demo:${{ github.sha }}}
+        with: {context: session17-devsecops, push: false, tags: 'devsecops-demo:${{ github.sha }}'}

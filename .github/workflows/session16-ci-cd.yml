@@ -22,4 +22,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: docker/build-push-action@v6
-        with: {context: session16-cicd-github-actions, push: false, tags: cicd-demo:${{ github.sha }}}
+        with: {context: session16-cicd-github-actions, push: false, tags: 'cicd-demo:${{ github.sha }}'}
