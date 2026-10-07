@@ -8,6 +8,7 @@
 *.tfstate.*
 *.tfvars
 !*.tfvars.example
+!local.tfvars
 .terraform.lock.hcl
 
 # Generated certificates and evidence can be added deliberately

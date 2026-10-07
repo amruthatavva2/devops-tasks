@@ -34,3 +34,18 @@ Terraform records resource IDs in `terraform.tfstate`; do not commit this file b
 ## Verification status
 
 The project has been formatted locally. Actual AWS deployment is pending your AWS CLI credentials, existing EC2 key-pair name, current regional AMI ID, and a unique S3 bucket name. This prevents unintended billable infrastructure from being created without your account configuration.
+
+## Local no-account option
+
+Use the shared LocalStack container to emulate AWS endpoints locally:
+
+```powershell
+docker compose -f ../localstack-compose.yml up -d
+terraform init
+terraform plan -var-file=local.tfvars
+terraform apply -auto-approve -var-file=local.tfvars
+terraform output
+terraform destroy -auto-approve -var-file=local.tfvars
+```
+
+LocalStack demonstrates Terraform provider/resources/state behavior without AWS billing. EC2/VPC emulation is not a substitute for a real AWS deployment.
