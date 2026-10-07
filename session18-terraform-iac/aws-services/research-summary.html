@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Session 18 - AWS Services Research</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 42px; font-family: Arial, sans-serif; color: #172033; background: #f4f7fb; }
+    header { margin-bottom: 25px; }
+    h1 { margin: 0 0 8px; color: #1b5e9e; font-size: 31px; }
+    p { margin: 0; color: #4b5565; font-size: 16px; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    article { min-height: 175px; padding: 20px; border-radius: 12px; background: white; border-left: 7px solid #f59e0b; box-shadow: 0 2px 9px #dce3ed; }
+    article:last-child { grid-column: span 2; min-height: 130px; }
+    h2 { margin: 0 0 10px; color: #132d4f; font-size: 21px; }
+    ul { margin: 0; padding-left: 19px; line-height: 1.45; color: #364152; }
+    footer { margin-top: 20px; color: #596579; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Session 18: AWS Services Research</h1>
+    <p>Visual evidence of the Task 2 research deliverable. Detailed explanations are in the five README files.</p>
+  </header>
+  <main class="grid">
+    <article><h2>IAM - Governance</h2><ul><li>Users, groups, roles, policies, and permissions</li><li>Least privilege, MFA, credential rotation, and access reviews</li><li>Used for human and workload authorization</li></ul></article>
+    <article><h2>EC2 - Compute</h2><ul><li>AMI, instance type, key pair, security group, and EBS</li><li>Public versus private IP addresses</li><li>Used for servers, runners, and workloads</li></ul></article>
+    <article><h2>S3 - Storage</h2><ul><li>Buckets and objects with storage classes</li><li>Versioning, lifecycle, encryption, and bucket policies</li><li>Used for artifacts, backups, logs, and data lakes</li></ul></article>
+    <article><h2>VPC - Networking</h2><ul><li>CIDR, subnets, route tables, Internet Gateway, NAT Gateway</li><li>Security Groups and Network ACLs</li><li>Public workloads separated from private workloads</li></ul></article>
+    <article><h2>DynamoDB and RDS - Databases</h2><ul><li>DynamoDB: NoSQL tables, items, attributes, partition/sort keys</li><li>RDS: managed relational engines, backups, Multi-AZ, replicas</li><li>Choose according to access patterns and data relationships</li></ul></article>
+  </main>
+  <footer>Prepared locally for the DevOps assignment; no AWS account or resources are required for this research task.</footer>
+</body>
+</html>

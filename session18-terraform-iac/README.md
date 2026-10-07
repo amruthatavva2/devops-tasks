@@ -42,6 +42,10 @@ The complete S3 workflow was executed locally on 7 October 2026. Terraform initi
 
 ## Task 2 — AWS services research
 
+The detailed research is included below and in the corresponding service folders. The rendered research-summary evidence is also captured here:
+
+![Session 18 Task 2 AWS-services research summary](./screenshots/task2-aws-services-research-summary.png)
+
 ### 1. IAM — Governance
 
 IAM controls AWS authentication and authorization. **Users** represent people/workloads; **groups** organize users; **roles** provide temporary assumable permissions; and **policies** define allowed or denied actions on resources. Follow least privilege, use roles rather than long-lived keys, require MFA, remove unused credentials, and review access regularly. Typical uses include developer access, EC2 instance roles, and cross-account access.
