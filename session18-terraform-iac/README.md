@@ -42,7 +42,11 @@ The complete S3 workflow was executed locally on 7 October 2026. Terraform initi
 
 ## Task 2 — AWS services research
 
-The detailed research is included below and in the corresponding service folders. The rendered research-summary evidence is also captured here:
+The detailed research is included below and in the corresponding service folders.
+
+### Task 2 screenshot evidence
+
+The following locally rendered screenshot records the completed research summary across IAM, EC2, S3, VPC, DynamoDB, and RDS:
 
 ![Session 18 Task 2 AWS-services research summary](./screenshots/task2-aws-services-research-summary.png)
 
