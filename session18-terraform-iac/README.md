@@ -38,7 +38,7 @@ LocalStack is valid lab evidence for Terraform workflow practice but is not a re
 
 The complete S3 workflow was executed locally on 7 October 2026. Terraform initialized and validated the configuration, planned and applied four resources (`aws_s3_bucket`, versioning, server-side encryption, and public-access blocking), and returned the bucket name and ARN as outputs. The final `destroy` completed successfully, so no emulated S3 resources were left behind.
 
-![Actual Session 18 LocalStack apply output](./terraform-s3-demo/screenshots/localstack-s3-apply-output.png)
+![Actual Session 18 LocalStack apply output](./screenshots/terraform-s3-localstack-apply-output.png)
 
 ## Task 2 — AWS services research
 
