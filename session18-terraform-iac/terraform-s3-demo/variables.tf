@@ -10,5 +10,11 @@ variable "environment" {
   type    = string
   default = "dev"
 }
-variable "local_mode" { type = bool; default = false }
-variable "localstack_endpoint" { type = string; default = "http://localhost:4566" }
+variable "local_mode" {
+  type    = bool
+  default = false
+}
+variable "localstack_endpoint" {
+  type    = string
+  default = "http://localhost:4566"
+}

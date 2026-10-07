@@ -34,6 +34,12 @@ terraform destroy -auto-approve -var-file=local.tfvars
 
 LocalStack is valid lab evidence for Terraform workflow practice but is not a real AWS deployment.
 
+### Actual local execution evidence
+
+The complete S3 workflow was executed locally on 7 October 2026. Terraform initialized and validated the configuration, planned and applied four resources (`aws_s3_bucket`, versioning, server-side encryption, and public-access blocking), and returned the bucket name and ARN as outputs. The final `destroy` completed successfully, so no emulated S3 resources were left behind.
+
+![Actual Session 18 LocalStack apply output](./terraform-s3-demo/screenshots/localstack-s3-apply-output.png)
+
 ## Task 2 — AWS services research
 
 ### 1. IAM — Governance
@@ -60,4 +66,4 @@ A VPC is an isolated virtual network with a CIDR range. **Subnets** segment that
 
 ## Verification status
 
-Terraform, Helm, AWS CLI, Docker, Minikube, and kubectl are installed locally. Real AWS `apply` remains optional and requires your own configured AWS account. The LocalStack route above avoids that requirement.
+Terraform, Helm, AWS CLI, Docker, Minikube, and kubectl are installed locally. The S3 exercise has been verified through LocalStack. A real AWS `apply` remains optional and requires your own configured AWS account; the LocalStack route above avoids that requirement.

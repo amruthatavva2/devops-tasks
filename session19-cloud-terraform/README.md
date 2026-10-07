@@ -29,11 +29,7 @@ terraform destroy
 
 Terraform records resource IDs in `terraform.tfstate`; do not commit this file because it may contain sensitive metadata. Dependencies are inferred from resource references: the subnet depends on the VPC, routing depends on the Internet Gateway, and EC2 depends on subnet/security group.
 
-`apply` creates billable AWS resources. Capture `plan`, successful `apply`, AWS Console resources, `output`, and `destroy` in `screenshots/` after credentials are configured.
-
-## Verification status
-
-The project has been formatted locally. Actual AWS deployment is pending your AWS CLI credentials, existing EC2 key-pair name, current regional AMI ID, and a unique S3 bucket name. This prevents unintended billable infrastructure from being created without your account configuration.
+`apply` creates billable AWS resources when pointed at AWS. Capture `plan`, successful `apply`, AWS Console resources, `output`, and `destroy` in `screenshots/` after credentials are configured.
 
 ## Local no-account option
 
@@ -49,3 +45,13 @@ terraform destroy -auto-approve -var-file=local.tfvars
 ```
 
 LocalStack demonstrates Terraform provider/resources/state behavior without AWS billing. EC2/VPC emulation is not a substitute for a real AWS deployment.
+
+## Actual local execution evidence
+
+On 7 October 2026, this configuration was initialized, validated, planned, and applied against LocalStack. Terraform created eight resources: an S3 bucket, VPC, Internet Gateway, public subnet, route table, route-table association, security group, and EC2 instance. The outputs included the VPC ID, subnet ID, bucket name, and an emulated EC2 public IP. The following `terraform destroy` completed with **8 destroyed**, leaving no lab resources running.
+
+![Actual Session 19 LocalStack apply output](./screenshots/localstack-cloud-apply-output.png)
+
+## Verification status
+
+The project is formatted and has been successfully exercised through LocalStack without AWS credentials or charges. A real AWS deployment remains optional and requires your own configured AWS account, key pair, AMI, and globally unique bucket name.
