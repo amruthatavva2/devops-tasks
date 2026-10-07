@@ -1,0 +1,28 @@
+name: Session 17 DevSecOps
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['session17-devsecops/**', '.github/workflows/session17-devsecops.yml']
+  pull_request:
+    paths: ['session17-devsecops/**', '.github/workflows/session17-devsecops.yml']
+permissions: {contents: read, security-events: write}
+jobs:
+  security-and-build:
+    runs-on: ubuntu-latest
+    defaults: {run: {working-directory: session17-devsecops/app}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm, cache-dependency-path: session17-devsecops/app/package-lock.json}
+      - run: npm ci
+      - run: npm test
+      - run: npm audit --audit-level=high
+      - uses: github/codeql-action/init@v3
+        with: {languages: javascript}
+      - uses: github/codeql-action/analyze@v3
+      - uses: gitleaks/gitleaks-action@v2
+      - uses: aquasecurity/trivy-action@master
+        with: {scan-type: fs, scan-ref: session17-devsecops, severity: HIGH,CRITICAL, exit-code: '1'}
+      - uses: docker/build-push-action@v6
+        with: {context: session17-devsecops, push: false, tags: devsecops-demo:${{ github.sha }}}

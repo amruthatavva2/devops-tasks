@@ -1,0 +1,25 @@
+name: Session 16 CI-CD Demo
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['session16-cicd-github-actions/**', '.github/workflows/session16-ci-cd.yml']
+  pull_request:
+    paths: ['session16-cicd-github-actions/**', '.github/workflows/session16-ci-cd.yml']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults: {run: {working-directory: session16-cicd-github-actions/app}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm, cache-dependency-path: session16-cicd-github-actions/app/package-lock.json}
+      - run: npm ci
+      - run: npm test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/build-push-action@v6
+        with: {context: session16-cicd-github-actions, push: false, tags: cicd-demo:${{ github.sha }}}
