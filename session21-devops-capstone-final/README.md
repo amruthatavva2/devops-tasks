@@ -174,7 +174,9 @@ The following is an honest completion record for this no-AWS submission. “Not 
 
 - [x] Root GitHub Actions workflow triggers for Session 21 source changes.
 - [x] Pytest, frontend build, Docker builds, Trivy HIGH/CRITICAL gates, and SHA-based GHCR publish jobs are configured.
-- [ ] Successful GitHub Actions/GHCR screenshot — pending GitHub workflow execution/package publication; this needs only GitHub, not AWS.
+- [x] GitHub Actions executed the real test, frontend-build, and backend-image-build stages from commit `e72d635`.
+- [x] The Trivy HIGH/CRITICAL security gate was verified: it blocked promotion after the backend scan, so frontend scan and GHCR publication were correctly skipped. The gate is intentionally not bypassed.
+- [ ] Green CI/GHCR package screenshot — pending remediation of the Trivy finding and a subsequent successful run. This needs only GitHub, not AWS.
 
 ### M7 — Terraform AWS infrastructure
 
