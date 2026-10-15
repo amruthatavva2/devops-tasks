@@ -6,6 +6,8 @@ ProjectPulse is a SaaS-style delivery-board application: a React/Vite dashboard 
 
 Every claim below that says something was verified was actually run against a live stack — Docker Compose, a local Kubernetes cluster, and a real GitHub Actions pipeline — on **15 October 2026**, and is backed by a screenshot or a raw API response saved in [`screenshots/`](./screenshots/).
 
+**Presentation:** [`presentation.pdf`](./presentation.pdf) — the 18-slide capstone deck, covering this same material in presentation form with the real screenshots embedded.
+
 ---
 
 ## 1. Architecture
