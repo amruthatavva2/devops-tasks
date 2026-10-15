@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 
-const emptyTask = { title: "", description: "", status: "todo", priority: "medium", owner: "Saranya" };
+const emptyTask = { title: "", description: "", status: "todo", priority: "medium", owner: "Amrutha" };
 const statusName = { todo: "To do", in_progress: "In progress", done: "Done" };
 
 function App() {
@@ -37,8 +37,8 @@ function App() {
     load();
   }
   return <div className="shell">
-    <aside><div className="brand">◆ ProjectPulse</div><p className="workspace">WORKSPACE</p><nav><a className="active">▦ Overview</a><a>✓ My tasks</a><a>◌ Timeline</a><a>▤ Reports</a></nav><div className="aside-bottom"><span className="avatar">ST</span><span>Saranya Tavva<br/><small>Engineering</small></span></div></aside>
-    <main><header><div><p className="eyebrow">MONDAY, 15 OCTOBER</p><h1>Good morning, Saranya <span>✦</span></h1><p className="muted">Here is the delivery pulse across your workspace.</p></div><button onClick={() => setShowModal(true)}>+ Create task</button></header>
+    <aside><div className="brand">◆ ProjectPulse</div><p className="workspace">WORKSPACE</p><nav><a className="active">▦ Overview</a><a>✓ My tasks</a><a>◌ Timeline</a><a>▤ Reports</a></nav><div className="aside-bottom"><span className="avatar">AT</span><span>Amrutha Tavva<br/><small>Engineering</small></span></div></aside>
+    <main><header><div><p className="eyebrow">MONDAY, 15 OCTOBER</p><h1>Good morning, Amrutha <span>✦</span></h1><p className="muted">Here is the delivery pulse across your workspace.</p></div><button onClick={() => setShowModal(true)}>+ Create task</button></header>
     {error && <div className="error">{error}</div>}
     <section className="kpis"><Kpi label="Total tasks" value={stats.total} icon="▣"/><Kpi label="In progress" value={stats.in_progress} icon="↗"/><Kpi label="Completed" value={stats.done} icon="✓"/><Kpi label="Delivery health" value={stats.total ? `${Math.round((stats.done / stats.total) * 100)}%` : "—"} icon="♥"/></section>
     <section className="panel"><div className="panel-head"><div><h2>Delivery board</h2><p>Prioritize the work that moves the release forward.</p></div><div className="filters">{["all", "todo", "in_progress", "done"].map((name) => <button className={filter === name ? "filter selected" : "filter"} onClick={() => setFilter(name)} key={name}>{name === "all" ? "All" : statusName[name]}</button>)}</div></div>

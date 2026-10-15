@@ -1,5 +1,5 @@
 def task_payload(**overrides):
-    payload = {"title": "Prepare release checklist", "description": "Confirm every pipeline gate", "status": "todo", "priority": "high", "owner": "Saranya"}
+    payload = {"title": "Prepare release checklist", "description": "Confirm every pipeline gate", "status": "todo", "priority": "high", "owner": "Amrutha"}
     payload.update(overrides)
     return payload
 
