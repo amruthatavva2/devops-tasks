@@ -76,6 +76,16 @@ kubectl get pods,svc,hpa -n projectpulse
 helm list -n projectpulse
 ```
 
+### Actual local Kubernetes verification evidence
+
+The complete Helm release was deployed to the local Minikube cluster on 15 October 2026. It includes two healthy frontend Pods, two healthy backend Pods, PostgreSQL, three ClusterIP Services, a backend HPA, service endpoints, and the deployed Helm release. A brief backend restart occurred during initial PostgreSQL startup; readiness probes kept it out of service until the database became available, and the deployment subsequently completed successfully.
+
+![Local Kubernetes, Helm, Services, HPA, endpoints, and metrics](./screenshots/local-kubernetes-helm-hpa.png)
+
+The Kubernetes backend was then verified through a local port-forward. `/health` and database-checking `/ready` returned success, and `/metrics` emitted Prometheus-formatted application metrics.
+
+![Local Kubernetes health, readiness, and Prometheus metrics](./screenshots/local-kubernetes-metrics.png)
+
 An Ingress controller and Metrics Server are needed for Ingress and HPA behavior. The dev hostname is `taskboard.local`; map it to your ingress IP in your hosts file. Enable monitoring after installing kube-prometheus-stack:
 
 ```powershell
@@ -128,10 +138,66 @@ Optional/required only for the real cloud sections:
 - GitHub Actions/GHCR: repository package permissions for image publication.
 - A Kubernetes cluster plus NGINX Ingress Controller, Metrics Server, and kube-prometheus-stack: live Helm/HPA/Prometheus/Grafana demonstration.
 
-## Submission checklist
+## Local no-AWS submission checklist
 
-- [x] Application source, API, migration, tests, Dockerfiles, Compose, CI workflow, security scans, Terraform, Helm, monitoring config, troubleshooting manifests, documentation
-- [ ] Capture live Docker browser/Compose/test evidence
-- [ ] Enable GHCR push and capture a successful Actions run
-- [ ] Provision and destroy real AWS EKS only if you have approved AWS billing
-- [ ] Capture live Kubernetes, Prometheus, and Grafana evidence from a configured cluster
+The following is an honest completion record for this no-AWS submission. “Not applicable” means a real AWS account is the only legitimate way to produce that particular proof; it is not represented as completed.
+
+### M1 — Application
+
+- [x] FastAPI backend responds to `/health`.
+- [x] CRUD REST APIs and task statistics are implemented.
+- [x] PostgreSQL table is defined by an Alembic migration.
+- [x] React dashboard makes API calls and has responsive/error/loading UI.
+- [x] Local Compose stack verified with live API evidence.
+
+### M2 — Tests and quality
+
+- [x] `pytest -q` passes: 6 tests.
+- [x] Tests cover health/readiness, create/read, list/filter, update, statistics/delete, and validation.
+- [x] Tests use an isolated SQLite test database.
+- [x] `pytest.ini` and `conftest.py` are included.
+
+### M3 — Git and GitHub
+
+- [x] Public GitHub repository is used.
+- [x] Meaningful commits are present.
+- [x] `.gitignore` excludes virtual environments, caches, databases, Node modules, and Terraform state.
+
+### M4 — Docker
+
+- [x] Backend non-root Dockerfile builds.
+- [x] Frontend multi-stage Node-to-Nginx Dockerfile builds.
+- [x] `docker compose up --build` runs frontend, backend, and PostgreSQL.
+- [x] Local Compose/API screenshot is included above.
+
+### M5/M6 — CI/CD and DevSecOps
+
+- [x] Root GitHub Actions workflow triggers for Session 21 source changes.
+- [x] Pytest, frontend build, Docker builds, Trivy HIGH/CRITICAL gates, and SHA-based GHCR publish jobs are configured.
+- [ ] Successful GitHub Actions/GHCR screenshot — pending GitHub workflow execution/package publication; this needs only GitHub, not AWS.
+
+### M7 — Terraform AWS infrastructure
+
+- [x] Valid Terraform HCL, VPC, two public subnets, EKS, node-group design, outputs, and `terraform.tfvars.example` are included.
+- [x] `terraform fmt` and `terraform validate` completed locally.
+- [ ] **Not applicable without AWS account:** real `plan`, `apply`, AWS Console VPC/EKS screenshot, and `destroy` screenshot. These cannot be truthfully faked or emulated as EKS evidence.
+
+### M8 — Kubernetes and Helm
+
+- [x] Namespace manifest and complete Helm chart are included.
+- [x] Helm release deployed successfully to local Minikube.
+- [x] Two frontend and two backend replicas are Running.
+- [x] ClusterIP backend/frontend/PostgreSQL Services and endpoints verified.
+- [x] Backend HPA deployed (2–5 replicas); metrics API available.
+- [x] Ingress, probes, PVC, and ServiceMonitor templates are included. Ingress is disabled in the local verification because a local NGINX Ingress controller is not installed.
+- [x] Live local Kubernetes/Helm screenshot is included above.
+
+### M9 — Observability
+
+- [x] Live Prometheus-formatted `/metrics` output captured from Kubernetes.
+- [x] Prometheus/Grafana values and ServiceMonitor are supplied.
+- [ ] Prometheus Targets/Grafana populated-panel screenshots — require installing kube-prometheus-stack locally; no AWS account is required.
+
+### M10 — Documentation
+
+- [x] Complete capstone README, architecture, runbooks, evidence, troubleshooting process, and local/no-AWS limitations are documented.
