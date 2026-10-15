@@ -1,0 +1,5 @@
+grafana:
+  adminPassword: changeme-in-production
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false

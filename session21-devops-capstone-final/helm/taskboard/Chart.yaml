@@ -1,0 +1,6 @@
+apiVersion: v2
+name: projectpulse
+description: ProjectPulse full-stack capstone chart
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

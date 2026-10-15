@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Secret
+metadata: { name: projectpulse-db }
+type: Opaque
+stringData: { password: {{ .Values.postgres.password | quote }} }
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: { name: projectpulse-postgres }
+spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: {{ .Values.postgres.storage }} } } }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: projectpulse-postgres }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: projectpulse-postgres } }
+  template:
+    metadata: { labels: { app: projectpulse-postgres } }
+    spec:
+      containers:
+        - name: postgres
+          image: {{ .Values.postgres.image }}
+          env:
+            - { name: POSTGRES_DB, value: projectpulse }
+            - { name: POSTGRES_USER, value: projectpulse }
+            - name: POSTGRES_PASSWORD
+              valueFrom: { secretKeyRef: { name: projectpulse-db, key: password } }
+          ports: [{ containerPort: 5432 }]
+          volumeMounts: [{ name: data, mountPath: /var/lib/postgresql/data }]
+      volumes: [{ name: data, persistentVolumeClaim: { claimName: projectpulse-postgres } }]
+---
+apiVersion: v1
+kind: Service
+metadata: { name: postgres }
+spec: { selector: { app: projectpulse-postgres }, ports: [{ port: 5432, targetPort: 5432 }] }

@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: broken-image, namespace: projectpulse }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: broken-image } }
+  template:
+    metadata: { labels: { app: broken-image } }
+    spec:
+      containers: [{ name: api, image: ghcr.io/example/projectpulse-backend:this-tag-does-not-exist }]

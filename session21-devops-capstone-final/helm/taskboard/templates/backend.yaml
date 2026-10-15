@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: projectpulse-backend, labels: { app: projectpulse-backend } }
+spec:
+  replicas: {{ .Values.replicas.backend }}
+  selector: { matchLabels: { app: projectpulse-backend } }
+  template:
+    metadata: { labels: { app: projectpulse-backend } }
+    spec:
+      containers:
+        - name: backend
+          image: {{ .Values.images.backend }}
+          imagePullPolicy: {{ .Values.images.pullPolicy }}
+          ports: [{ containerPort: 8000 }]
+          env:
+            - name: DATABASE_URL
+              value: postgresql+psycopg://projectpulse:{{ .Values.postgres.password }}@postgres:5432/projectpulse
+          resources: { requests: { cpu: 100m, memory: 128Mi }, limits: { cpu: 500m, memory: 256Mi } }
+          livenessProbe: { httpGet: { path: /health, port: 8000 }, initialDelaySeconds: 10 }
+          readinessProbe: { httpGet: { path: /ready, port: 8000 }, initialDelaySeconds: 10 }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: backend, labels: { app: projectpulse-backend } }
+spec: { selector: { app: projectpulse-backend }, ports: [{ name: http, port: 8000, targetPort: 8000 }] }
