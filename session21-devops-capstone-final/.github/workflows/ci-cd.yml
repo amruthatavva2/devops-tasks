@@ -18,11 +18,11 @@ jobs:
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v6
         with: { context: session21-devops-capstone-final/backend, push: false, tags: projectpulse-backend:${{ github.sha }}, load: true }
-      - uses: aquasecurity/trivy-action@0.28.0
+      - uses: aquasecurity/trivy-action@v0.36.0
         with: { image-ref: projectpulse-backend:${{ github.sha }}, format: table, exit-code: "1", ignore-unfixed: true, severity: HIGH,CRITICAL }
       - uses: docker/build-push-action@v6
         with: { context: session21-devops-capstone-final/frontend, push: false, tags: projectpulse-frontend:${{ github.sha }}, load: true }
-      - uses: aquasecurity/trivy-action@0.28.0
+      - uses: aquasecurity/trivy-action@v0.36.0
         with: { image-ref: projectpulse-frontend:${{ github.sha }}, format: table, exit-code: "1", ignore-unfixed: true, severity: HIGH,CRITICAL }
   publish-ghcr:
     if: github.event_name == 'push'
