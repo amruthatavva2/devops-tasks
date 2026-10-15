@@ -101,7 +101,7 @@ Never commit `terraform.tfvars`, `terraform.tfstate`, or access keys. Run `destr
 
 ## CI/CD and GHCR
 
-The workflow runs pytest, builds the frontend, builds both images, and scans both images with Trivy. It fails on HIGH/CRITICAL vulnerabilities. On every push to `main`, the `publish-ghcr` job signs in with the repository's built-in `GITHUB_TOKEN` and publishes backend and frontend images to GHCR using the exact commit SHA. The non-enabled deploy job documents the Helm release command; enable it only after configuring Kubernetes authentication.
+The runnable workflow is at the repository root, `.github/workflows/session21-projectpulse.yml`, because GitHub Actions only detects root-level workflow files. A matching copy is kept under this session for the deliverable. It runs pytest, builds the frontend, builds both images, and scans both images with Trivy. It fails on HIGH/CRITICAL vulnerabilities. On every push to `main`, the `publish-ghcr` job signs in with the repository's built-in `GITHUB_TOKEN` and publishes backend and frontend images to GHCR using the exact commit SHA.
 
 ## Troubleshooting lab
 
