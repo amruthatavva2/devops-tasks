@@ -24,9 +24,30 @@ jobs:
         with: { context: session21-devops-capstone-final/frontend, push: false, tags: projectpulse-frontend:${{ github.sha }}, load: true }
       - uses: aquasecurity/trivy-action@0.28.0
         with: { image-ref: projectpulse-frontend:${{ github.sha }}, format: table, exit-code: "1", ignore-unfixed: true, severity: HIGH,CRITICAL }
+  publish-ghcr:
+    if: github.event_name == 'push'
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: session21-devops-capstone-final/backend
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/projectpulse-backend:${{ github.sha }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: session21-devops-capstone-final/frontend
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/projectpulse-frontend:${{ github.sha }}
   deploy-example:
     if: false # Enable only after configuring a cluster and GHCR image names.
-    needs: test-and-build
+    needs: publish-ghcr
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
