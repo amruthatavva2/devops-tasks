@@ -26,6 +26,7 @@ spec:
             - { name: POSTGRES_USER, value: projectpulse }
             - name: POSTGRES_PASSWORD
               valueFrom: { secretKeyRef: { name: projectpulse-db, key: password } }
+            - { name: PGDATA, value: /var/lib/postgresql/data/pgdata }
           ports: [{ containerPort: 5432 }]
           volumeMounts: [{ name: data, mountPath: /var/lib/postgresql/data }]
       volumes: [{ name: data, persistentVolumeClaim: { claimName: projectpulse-postgres } }]

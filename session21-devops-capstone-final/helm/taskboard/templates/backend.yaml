@@ -2,7 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata: { name: projectpulse-backend, labels: { app: projectpulse-backend } }
 spec:
+  {{- if not .Values.hpa.enabled }}
   replicas: {{ .Values.replicas.backend }}
+  {{- end }}
   selector: { matchLabels: { app: projectpulse-backend } }
   template:
     metadata: { labels: { app: projectpulse-backend } }

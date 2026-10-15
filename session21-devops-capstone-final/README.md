@@ -191,7 +191,7 @@ The following is an honest completion record for this no-AWS submission. “Not 
 - [x] Two frontend and two backend replicas are Running.
 - [x] ClusterIP backend/frontend/PostgreSQL Services and endpoints verified.
 - [x] Backend HPA deployed (2–5 replicas); metrics API available.
-- [x] Ingress, probes, PVC, and ServiceMonitor templates are included. Ingress is disabled in the local verification because a local NGINX Ingress controller is not installed.
+- [x] Ingress enabled and verified on local Minikube with the NGINX Ingress addon: `/` routed to the frontend (HTTP 200) and `/api/tasks/stats` routed to the backend (valid JSON), both confirmed through the Ingress controller on 15 October 2026.
 - [x] Live local Kubernetes/Helm screenshot is included above.
 
 ### M9 — Observability
