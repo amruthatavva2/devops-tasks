@@ -198,7 +198,10 @@ The following is an honest completion record for this no-AWS submission. “Not 
 
 - [x] Live Prometheus-formatted `/metrics` output captured from Kubernetes.
 - [x] Prometheus/Grafana values and ServiceMonitor are supplied.
-- [ ] Prometheus Targets/Grafana populated-panel screenshots — require installing kube-prometheus-stack locally; no AWS account is required.
+- [x] kube-prometheus-stack installed locally via Helm; ServiceMonitor target confirmed `health: up` for both backend pods with zero scrape errors, verified directly against the Prometheus API (`screenshots/prometheus-targets-projectpulse.json`).
+- [x] Grafana dashboard `ProjectPulse Backend` created with a live request-rate panel, a total-requests stat, and a backend-targets-up stat; all three resolve real data through Grafana's own datasource proxy and are captured as PNGs rendered by Grafana's built-in image-renderer (`screenshots/grafana-dashboard-full.png`, `grafana-panel-request-rate.png`, `grafana-panel-total-requests.png`, `grafana-panel-backend-targets-up.png`), captured 15 October 2026.
+
+![Grafana ProjectPulse Backend dashboard](./screenshots/grafana-dashboard-full.png)
 
 ### M10 — Documentation
 

@@ -1,0 +1,16 @@
+[
+  {
+    "scrapePool": "serviceMonitor/projectpulse/projectpulse-backend/0",
+    "health": "up",
+    "scrapeUrl": "http://10.244.0.11:8000/metrics",
+    "lastError": "",
+    "pod": "projectpulse-backend-56864564bb-5k84f"
+  },
+  {
+    "scrapePool": "serviceMonitor/projectpulse/projectpulse-backend/0",
+    "health": "up",
+    "scrapeUrl": "http://10.244.0.9:8000/metrics",
+    "lastError": "",
+    "pod": "projectpulse-backend-56864564bb-c45mh"
+  }
+]
